@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Nex Genix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #1a202c;
+      color: white;
+    }
+
+    .sidebar {
+      background-color: #2d3748;
+    }
+
+    .content-box {
+      background-color: #2d3748;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .input {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #4a5568;
+      border: 1px solid #2d3748;
+      border-radius: 0.5rem;
+      color: white;
+      outline: none;
+    }
+
+    .input:focus {
+      border-color: #48bb78;
+      box-shadow: 0 0 0 2px #48bb78;
+    }
+
+    .button {
+      background-color: #48bb78;
+      color: white;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+    }
+
+    .button:hover {
+      background-color: #38a169;
+    }
+
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #48bb78;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #2d3748;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+  </style>
+</head>
+
+<body class="flex min-h-screen">
+
+  <!-- Sidebar -->
+  <div class="sidebar fixed inset-y-0 left-0 w-64 p-5 shadow-lg">
+    <h2 class="text-xl font-bold mb-5 text-green-400">Nex Genix</h2>
+    <ul class="space-y-4">
+      <li class="cursor-pointer hover:text-green-400" onclick="showSection
+
+('dashboard')">Dashboard</li>
+      <li class="cursor-pointer hover:text-green-400" onclick="showSection
+
+('services')">Subscribed Services</li>
+      <li class="cursor-pointer hover:text-green-400" onclick="showSection
+
+('settings')">Settings</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col ml-64 p-6">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between bg-gray-800 p-4 shadow-md rounded-lg">
+      <div class="relative">
+        <input type="text" placeholder="Search..." class="input pl-8">
+      </div>
+      <div class="flex items-center space-x-4">
+        <i class="cursor-pointer">🔔</i>
+        <i class="cursor-pointer">👤</i>
+        <button onclick="window.location.href='/login'" class="button">Logout</button>
+        <div class="relative dropdown">
+          <button class="button">Home</button>
+          <div class="dropdown-menu">
+            <a href="https://nexgenixbusinessschool.github.io/home/" class="block p-2 
+
+hover:bg-gray-700">NGBS Homepage</a>
+            <a href="https://nexgenixcreativesolutions.github.io/home/" class="block p-2 
+
+hover:bg-gray-700">NGCS Homepage</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Dynamic Content -->
+    <div id="dynamic-content" class="mt-6">
+
+      <!-- Default Dashboard -->
+      <div id="dashboard">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="content-box">
+            <h3 class="text-lg font-semibold">Total Users</h3>
+            <p class="text-2xl font-bold">1,250</p>
+          </div>
+          <div class="content-box">
+            <h3 class="text-lg font-semibold">Courses</h3>
+            <p class="text-2xl font-bold">45</p>
+          </div>
+          <div class="content-box">
+            <h3 class="text-lg font-semibold">Active Sessions</h3>
+            <p class="text-2xl font-bold">120</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div id="services" class="hidden content-box">
+        <h3 class="text-xl font-bold">Subscribed Services</h3>
+        <p class="mt-2">List of services goes here...</p>
+      </div>
+
+      <!-- Settings -->
+      <div id="settings" class="hidden content-box">
+        <h2 class="text-xl font-bold text-green-400 text-center">Settings</h2>
+        
+        <div class="text-center">
+          <img id="profile-pic" src="https://via.placeholder.com/100" alt="Profile Picture" 
+
+class="profile-pic mx-auto">
+          <label for="profile-upload" class="text-green-400 cursor-pointer block mt-2">Change 
+
+Profile Picture</label>
+          <input type="file" id="profile-upload" class="hidden" accept="image/*" 
+
+onchange="previewImage(event)">
+        </div>
+
+        <div class="mt-4">
+          <label class="block">Full Name</label>
+          <input type="text" class="input" placeholder="John Doe">
+        </div>
+
+        <div class="mt-4">
+          <label class="block">Email</label>
+          <input type="email" class="input" placeholder="john@example.com">
+        </div>
+
+        <div class="mt-4">
+          <label class="block">Phone Number</label>
+          <input type="tel" class="input" placeholder="+1234567890">
+        </div>
+
+        <div class="mt-4">
+          <label class="block">New Password</label>
+          <input type="password" class="input" placeholder="••••••••">
+        </div>
+
+        <button class="button w-full mt-4">Save Changes</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function showSection(section) {
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('services').classList.add('hidden');
+      document.getElementById('settings').classList.add('hidden');
+      document.getElementById(section).classList.remove('hidden');
+    }
+
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("profile-pic").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
+
+</body>
+
+</html>
