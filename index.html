@@ -113,6 +113,9 @@
     </nav>
 
     <div id="dashboard" class="mt-6">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div id="dashboard" class="mt-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="content-box">
           <h3 class="text-lg font-semibold">Total Users</h3>
@@ -164,6 +167,24 @@
     </div>
   </div>
 
+  <script>
+    function updateDateTime() {
+  const now = new Date();
+  const time = now.toLocaleTimeString('en-US', { hour12: false });
+  const date = now.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
+
+  document.getElementById('live-time').textContent = time;
+  document.getElementById('live-date').textContent = date;
+}
+
+setInterval(updateDateTime, 1000);
+updateDateTime(); // Initial call
+  </script>
+      
   <script>
     const services = [
       {
