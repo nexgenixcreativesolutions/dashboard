@@ -175,101 +175,147 @@
     </div>
 
     <!-- Settings -->
-    <div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-4">
-      <h2 class="text-2xl font-bold text-primary text-center">Settings</h2>
+<div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-6">
+  <h2 class="text-2xl font-bold text-green-400 text-center">Settings</h2>
 
-      <div class="text-center">
-        <img id="profile-pic-settings" src="https://via.placeholder.com/100" alt="Profile Picture"
-          class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-primary" />
-        <label for="profile-upload" class="block mt-2 text-primary cursor-pointer">Change Profile Picture</label>
-        <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
-      </div>
+  <!-- Profile Picture -->
+  <div class="text-center space-y-2">
+    <img id="profile-pic-settings" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
+      alt="Profile Picture"
+      class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-green-400" />
+    <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
+      <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
+      <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
+    </div>
+    <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+  </div>
 
-      <div>
-        <label class="block mb-1">Full Name</label>
-        <input type="text" id="full-name-settings" class="input" placeholder="John Doe" />
-      </div>
+  <div>
+    <label class="block mb-1">Full Name</label>
+    <input type="text" id="full-name-settings" class="input" placeholder="John Doe" />
+  </div>
 
-      <div>
-        <label class="block mb-1">Email</label>
-        <input type="email" id="email-settings" class="input" placeholder="john@example.com" />
-      </div>
+  <div>
+    <label class="block mb-1">Email</label>
+    <input type="email" id="email-settings" class="input" placeholder="john@example.com" />
+  </div>
 
-      <div>
-        <label class="block mb-1">Birthdate</label>
-        <input type="date" id="birthdate-settings" class="input" />
-      </div>
+  <div>
+    <label class="block mb-1">Birthdate</label>
+    <input type="date" id="birthdate-settings" class="input" />
+  </div>
 
-      <div>
-        <label class="block mb-1">New Password</label>
-        <input type="password" class="input" placeholder="••••••••" />
-      </div>
+  <!-- Password Fields -->
+  <div class="space-y-4">
+    <label class="block text-lg font-semibold text-green-300">Reset Password</label>
 
-      <button class="w-full mt-4 bg-primary py-3 rounded-lg font-semibold hover:bg-green-600" onclick="saveSettings()">Save Changes</button>
+    <div class="relative">
+      <input type="password" id="old-password" class="input" placeholder="Old Password" />
+      <span onclick="togglePassword('old-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
+    </div>
+
+    <div class="relative">
+      <input type="password" id="new-password" class="input" placeholder="New Password" />
+      <span onclick="togglePassword('new-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
+    </div>
+
+    <div class="relative">
+      <input type="password" id="confirm-password" class="input" placeholder="Confirm Password" />
+      <span onclick="togglePassword('confirm-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
     </div>
   </div>
 
-  <script>
-    function showSection(id) {
-      const sections = ['dashboard', 'services', 'settings'];
-      sections.forEach(section => {
-        document.getElementById(section).classList.add('hidden');
-      });
-      document.getElementById(id).classList.remove('hidden');
+  <!-- Save Button -->
+  <button class="w-full mt-4 button" onclick="saveSettings()">Save Changes</button>
+
+  <!-- Save Message -->
+  <div id="save-message" class="hidden text-center text-green-400 font-semibold mt-2">
+    ✅ Changes saved successfully!
+  </div>
+</div>
+
+<script>
+  const defaultProfile = "https://cdn-icons-png.flaticon.com/512/1144/1144760.png";
+
+  function showSection(id) {
+    const sections = ['dashboard', 'services', 'settings'];
+    sections.forEach(section => {
+      document.getElementById(section).classList.add('hidden');
+    });
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgData = e.target.result;
+        document.getElementById("profile-pic-settings").src = imgData;
+        document.getElementById("profile-pic-main").src = imgData;
+      };
+      reader.readAsDataURL(file);
     }
+  }
 
-    function previewImage(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const imgData = e.target.result;
-          document.getElementById("profile-pic-settings").src = imgData;
-          document.getElementById("profile-pic-main").src = imgData;
-        };
-        reader.readAsDataURL(file);
-      }
+  function removeProfileImage() {
+    document.getElementById("profile-pic-settings").src = defaultProfile;
+    document.getElementById("profile-pic-main").src = defaultProfile;
+    document.getElementById("profile-upload").value = null;
+  }
+
+  function togglePassword(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+  }
+
+  function saveSettings() {
+    const fullName = document.getElementById('full-name-settings').value;
+    const email = document.getElementById('email-settings').value;
+    const birthdate = document.getElementById('birthdate-settings').value;
+    const profilePic = document.getElementById('profile-pic-settings').src;
+
+    const user = { fullName, email, birthdate, profilePic };
+    localStorage.setItem('user', JSON.stringify(user));
+    loadUserData();
+
+    // Save confirmation message
+    const msg = document.getElementById("save-message");
+    if (msg) {
+      msg.classList.remove("hidden");
+      setTimeout(() => msg.classList.add("hidden"), 3000);
     }
+  }
 
-    function loadUserData() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        document.getElementById('profile-pic-main').src = user.profilePic || 'default-profile-pic.jpg';
-        document.getElementById('profile-pic-settings').src = user.profilePic || 'default-profile-pic.jpg';
-        document.getElementById('full-name').textContent = user.fullName;
-        document.getElementById('email').textContent = user.email;
-        document.getElementById('birthdate').textContent = user.birthdate;
+  function loadUserData() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      document.getElementById('profile-pic-main').src = user.profilePic || defaultProfile;
+      document.getElementById('profile-pic-settings').src = user.profilePic || defaultProfile;
+      document.getElementById('full-name').textContent = user.fullName;
+      document.getElementById('email').textContent = user.email;
+      document.getElementById('birthdate').textContent = user.birthdate;
 
-        document.getElementById('full-name-settings').value = user.fullName;
-        document.getElementById('email-settings').value = user.email;
-        document.getElementById('birthdate-settings').value = user.birthdate;
-      }
+      document.getElementById('full-name-settings').value = user.fullName;
+      document.getElementById('email-settings').value = user.email;
+      document.getElementById('birthdate-settings').value = user.birthdate;
     }
+  }
 
-    function saveSettings() {
-      const fullName = document.getElementById('full-name-settings').value;
-      const email = document.getElementById('email-settings').value;
-      const birthdate = document.getElementById('birthdate-settings').value;
-      const profilePic = document.getElementById('profile-pic-settings').src;
+  function updateDateTime() {
+    const date = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('current-time').textContent = date.toLocaleTimeString();
+    document.getElementById('current-date').textContent = date.toLocaleDateString(undefined, options);
+  }
 
-      const user = { fullName, email, birthdate, profilePic };
-      localStorage.setItem('user', JSON.stringify(user));
-      loadUserData();
-    }
+  setInterval(updateDateTime, 1000);
 
-    function updateDateTime() {
-      const date = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('current-time').textContent = date.toLocaleTimeString();
-      document.getElementById('current-date').textContent = date.toLocaleDateString(undefined, options);
-    }
-
-    setInterval(updateDateTime, 1000);
-    window.onload = () => {
-      updateDateTime();
-      loadUserData();
-    };
-  </script>
+  window.onload = () => {
+    updateDateTime();
+    loadUserData();
+  };
+</script>
 
 </body>
 
