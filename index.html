@@ -166,33 +166,40 @@
       </div>
     </div>
 
-    <!-- Settings Section -->
-    <div id="settings" class="hidden mt-6 content-box">
-      <h2 class="text-xl font-bold text-green-400 mb-4">Settings</h2>
+<!-- Settings -->
+      <div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-4">
+        <h2 class="text-2xl font-bold text-primary text-center">Settings</h2>
 
-      <div class="text-center mb-4">
-        <div class="w-24 h-24 rounded-full bg-gray-600 mx-auto flex items-center justify-center border-4 border-green-400" id="profile-pic-wrapper-settings">
-          <img id="profile-pic-settings" src="" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
+        <div class="text-center">
+          <img id="profile-pic" src="https://via.placeholder.com/100" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-primary" />
+          <label for="profile-upload" class="block mt-2 text-primary cursor-pointer">Change Profile Picture</label>
+          <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
         </div>
-        <label for="profile-upload" class="text-green-400 cursor-pointer block mt-2">Change Profile Picture</label>
-        <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+
+        <div>
+          <label class="block mb-1">Full Name</label>
+          <input type="text" placeholder="John Doe" class="w-full bg-darkInput p-3 rounded-lg border border-darkSidebar focus:ring-2 focus:ring-primary" />
+        </div>
+
+        <div>
+          <label class="block mb-1">Email</label>
+          <input type="email" placeholder="john@example.com" class="w-full bg-darkInput p-3 rounded-lg border border-darkSidebar focus:ring-2 focus:ring-primary" />
+        </div>
+
+        <div>
+          <label class="block mb-1">Phone Number</label>
+          <input type="tel" placeholder="+1234567890" class="w-full bg-darkInput p-3 rounded-lg border border-darkSidebar focus:ring-2 focus:ring-primary" />
+        </div>
+
+        <div>
+          <label class="block mb-1">New Password</label>
+          <input type="password" placeholder="••••••••" class="w-full bg-darkInput p-3 rounded-lg border border-darkSidebar focus:ring-2 focus:ring-primary" />
+        </div>
+
+        <button class="w-full mt-4 bg-primary py-3 rounded-lg font-semibold hover:bg-green-600">Save Changes</button>
       </div>
+    </section>
 
-      <input type="text" id="full-name-settings" class="input mt-2" placeholder="Full Name">
-      <input type="email" id="email-settings" class="input mt-4" placeholder="Email">
-      <input type="date" id="birthdate-settings" class="input mt-4" placeholder="Birthdate">
-
-      <button class="button mt-6 w-full" onclick="saveSettings()">Save Changes</button>
-
-      <hr class="my-6 border-gray-600">
-      <h3 class="text-lg font-semibold text-green-400 mb-2">Reset Password</h3>
-
-      <input type="password" class="input mt-2" placeholder="Old Password">
-      <input type="password" class="input mt-4" placeholder="New Password">
-      <input type="password" class="input mt-4" placeholder="Confirm New Password">
-
-      <button class="button w-full mt-4">Reset Password</button>
-    </div>
   </div>
 
   <script>
@@ -282,6 +289,27 @@
     }
   }
 </script>
+
+    <script>
+    function showSection(id) {
+      const sections = ['dashboard', 'services', 'settings'];
+      sections.forEach(section => {
+        document.getElementById(section).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("profile-pic").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
 
 </body>
 
