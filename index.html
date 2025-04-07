@@ -125,7 +125,7 @@
             <a href="https://nexgenixcreativesolutions.github.io/home" target="_blank">NG Creative Solutions</a>
           </div>
         </div>
-        <button class="button" onclick="logout()">Logout</button>
+        <button onclick="logout()" class="button">Logout</button>
       </div>
     </nav>
 
@@ -196,6 +196,16 @@
   </div>
 
   <script>
+        // Logout function
+    function logout() {
+        // Remove the user session data
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userData");
+
+        // Redirect to the login/signup page
+        window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/"; 
+    }
+    
     // Load User Data from localStorage
     function loadUserData() {
       const user = JSON.parse(localStorage.getItem('user'));
