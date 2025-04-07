@@ -315,6 +315,14 @@
     updateDateTime();
     loadUserData();
   };
+
+  function logout() {
+  // Optional: Clear any stored user data (like localStorage)
+  localStorage.removeItem('user');
+
+  // Redirect to login-signup page
+  window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
+}
 </script>
 
 </body>
