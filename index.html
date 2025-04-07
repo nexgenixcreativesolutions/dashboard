@@ -80,23 +80,6 @@
       display: flex;
       gap: 1rem;
     }
-
-    .profile-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .profile-info {
-      margin-left: 1rem;
-    }
-
-    .profile-pic-wrapper img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
   </style>
 </head>
 
@@ -129,26 +112,9 @@
       </div>
     </nav>
 
-    <!-- Date and Time Display -->
-    <div id="date-time" class="text-center text-xl mb-6">
-      <div id="current-time" class="font-semibold"></div>
-      <div id="current-date" class="text-sm"></div>
-    </div>
+    <div id="dashboard" class="mt-6">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-    <!-- Profile Card -->
-    <div class="content-box profile-card mb-6">
-      <div class="profile-pic-wrapper" id="profile-pic-wrapper">
-        <img id="profile-pic" src="" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
-      </div>
-      <div class="profile-info">
-        <p id="full-name" class="text-lg font-bold">User Name</p>
-        <p id="email" class="text-sm text-gray-300">email@example.com</p>
-        <p id="birthdate" class="text-sm text-gray-300">MM/DD/YYYY</p>
-      </div>
-      <div class="flex-grow"></div>
-    </div>
-
-    <!-- Dashboard Section -->
     <div id="dashboard" class="mt-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="content-box">
@@ -166,23 +132,29 @@
       </div>
     </div>
 
-    <!-- Settings Section -->
+    <div id="services" class="hidden mt-6 content-box">
+      <h3 class="text-xl font-bold mb-4 text-green-400">Subscribed Services</h3>
+      <div id="service-list" class="space-y-4"></div>
+    </div>
+
     <div id="settings" class="hidden mt-6 content-box">
       <h2 class="text-xl font-bold text-green-400 mb-4">Settings</h2>
 
       <div class="text-center mb-4">
-        <div class="w-24 h-24 rounded-full bg-gray-600 mx-auto flex items-center justify-center border-4 border-green-400" id="profile-pic-wrapper-settings">
-          <img id="profile-pic-settings" src="" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
+        <div class="w-24 h-24 rounded-full bg-gray-600 mx-auto flex items-center justify-center border-4 border-green-400" id="profile-pic-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.96 8.96 0 0012 21c2.21 0 4.238-.805 5.879-2.137M15 11a3 3 0 10-6 0 3 3 0 006 0z" />
+          </svg>
         </div>
         <label for="profile-upload" class="text-green-400 cursor-pointer block mt-2">Change Profile Picture</label>
         <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
       </div>
 
-      <input type="text" id="full-name-settings" class="input mt-2" placeholder="Full Name">
-      <input type="email" id="email-settings" class="input mt-4" placeholder="Email">
-      <input type="date" id="birthdate-settings" class="input mt-4" placeholder="Birthdate">
+      <input type="text" class="input mt-2" placeholder="Full Name">
+      <input type="email" class="input mt-4" placeholder="Email">
+      <input type="tel" class="input mt-4" placeholder="Phone Number">
 
-      <button class="button mt-6 w-full" onclick="saveSettings()">Save Changes</button>
+      <button class="button mt-6 w-full">Save Changes</button>
 
       <hr class="my-6 border-gray-600">
       <h3 class="text-lg font-semibold text-green-400 mb-2">Reset Password</h3>
@@ -196,71 +168,100 @@
   </div>
 
   <script>
-    // Load User Data from localStorage
-    function loadUserData() {
-      const user = JSON.parse(localStorage.getItem('user'));
-
-      if (user) {
-        // Display Profile Picture
-        const profilePic = document.getElementById('profile-pic');
-        profilePic.src = user.profilePic ? user.profilePic : 'default-profile-pic.jpg';  // Default image
-
-        // Display User Info
-        document.getElementById('full-name').textContent = user.fullName;
-        document.getElementById('email').textContent = user.email;
-        document.getElementById('birthdate').textContent = user.birthdate;
-      }
-    }
-
-    // Update User Info in Settings Page
-    function loadSettings() {
-      const user = JSON.parse(localStorage.getItem('user'));
-
-      if (user) {
-        document.getElementById('profile-pic-settings').src = user.profilePic ? user.profilePic : 'default-profile-pic.jpg';
-        document.getElementById('full-name-settings').value = user.fullName;
-        document.getElementById('email-settings').value = user.email;
-        document.getElementById('birthdate-settings').value = user.birthdate;
-      }
-    }
-
-    // Save Settings and Update Profile Card
-    function saveSettings() {
-      const fullName = document.getElementById('full-name-settings').value;
-      const email = document.getElementById('email-settings').value;
-      const birthdate = document.getElementById('birthdate-settings').value;
-      const profilePic = document.getElementById('profile-pic-settings').src;
-
-      // Save updated data to localStorage
-      localStorage.setItem('user', JSON.stringify({
-        fullName: fullName,
-        email: email,
-        birthdate: birthdate,
-        profilePic: profilePic
-      }));
-
-      // Update Profile Card
-      loadUserData();
-    }
-
-    // Display Current Time and Date
     function updateDateTime() {
-      const date = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const currentTime = date.toLocaleTimeString();
-      const currentDate = date.toLocaleDateString(undefined, options);
+  const now = new Date();
+  const time = now.toLocaleTimeString('en-US', { hour12: false });
+  const date = now.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
 
-      document.getElementById('current-time').textContent = currentTime;
-      document.getElementById('current-date').textContent = currentDate;
+  document.getElementById('live-time').textContent = time;
+  document.getElementById('live-date').textContent = date;
+}
+
+setInterval(updateDateTime, 1000);
+updateDateTime(); // Initial call
+  </script>
+      
+  <script>
+    const services = [
+      {
+        source: "Nex Genix Business School",
+        products: [
+          "Complimentary Courses - Beginner-Friendly, Real-World Skills, Self-Paced, Certificate with QR",
+          "Premium Courses - Flexible Learning, Comprehensive Curriculum, Certificate with QR",
+          "Educational Books - Print & Free eBooks, Flexible Reading"
+        ]
+      },
+      {
+        source: "Nex Genix Creative Solutions",
+        products: [
+          "Brand Identity Development",
+          "Web & App UI/UX Design",
+          "Social Media Strategy & Management",
+          "Motion Graphics & Visual Effects"
+        ]
+      }
+    ];
+
+    function showSection(section) {
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('services').classList.add('hidden');
+      document.getElementById('settings').classList.add('hidden');
+      document.getElementById(section).classList.remove('hidden');
     }
 
-    // Call updateDateTime on page load
-    setInterval(updateDateTime, 1000); // Update every second
+    function fetchData() {
+      const container = document.getElementById('service-list');
+      container.innerHTML = '';
 
-    // Call loadUserData and loadSettings on page load
+      services.forEach(service => {
+        const header = document.createElement('h4');
+        header.className = 'text-lg font-semibold text-white';
+        header.textContent = service.source;
+        container.appendChild(header);
+
+        const ul = document.createElement('ul');
+        ul.className = 'list-disc list-inside text-gray-300';
+        service.products.forEach(product => {
+          const li = document.createElement('li');
+          li.textContent = product;
+          ul.appendChild(li);
+        });
+
+        container.appendChild(ul);
+      });
+    }
+
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const wrapper = document.getElementById("profile-pic-wrapper");
+          wrapper.innerHTML = `<img src="${e.target.result}" alt="Profile Picture" class="w-full h-full object-cover rounded-full">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("user");
+      window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
+    }
+
+    // Redirect if not logged in
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
+    }
+
+    // Initial load
     window.onload = () => {
-      loadUserData();
-      loadSettings();
+      showSection('dashboard');
+      fetchData();
     };
   </script>
 </body>
