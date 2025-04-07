@@ -148,15 +148,6 @@
       <div class="flex-grow"></div>
     </div>
 
-    <!-- User Profile Card -->
-<div id="profile-card" class="col-span-1 md:col-span-3 bg-darkSidebar p-6 rounded-2xl shadow-xl flex items-center space-x-6">
-  <img id="card-profile-pic" src="https://via.placeholder.com/100" alt="User Image" class="w-24 h-24 rounded-full object-cover border-4 border-primary" />
-  <div>
-    <h4 id="card-full-name" class="text-xl font-bold">Full Name</h4>
-    <p id="card-birthdate" class="text-gray-400">Birthdate: N/A</p>
-  </div>
-</div>
-
     <!-- Dashboard Section -->
     <div id="dashboard" class="mt-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -271,34 +262,27 @@
       loadUserData();
       loadSettings();
     };
-
-    // Save profile to localStorage and update card
-document.querySelector('#settings button').addEventListener('click', () => {
-  const fullName = document.querySelector('#settings input[placeholder="John Doe"]').value;
-  const birthdate = document.querySelector('#settings input[type="date"]')?.value || 'N/A';
-  const profilePicSrc = document.getElementById("profile-pic").src;
-
-  const userData = { fullName, birthdate, profilePicSrc };
-  localStorage.setItem("userProfile", JSON.stringify(userData));
-  updateProfileCard();
-});
-
-// Load profile card data on load
-window.addEventListener('DOMContentLoaded', () => {
-  updateProfileCard();
-});
-
-// Update card display
-function updateProfileCard() {
-  const data = JSON.parse(localStorage.getItem("userProfile"));
-  if (data) {
-    document.getElementById("card-full-name").textContent = data.fullName || 'Full Name';
-    document.getElementById("card-birthdate").textContent = `Birthdate: ${data.birthdate || 'N/A'}`;
-    document.getElementById("card-profile-pic").src = data.profilePicSrc || 'https://via.placeholder.com/100';
-    document.getElementById("profile-pic").src = data.profilePicSrc || 'https://via.placeholder.com/100';
-  }
-}
   </script>
+
+  <script>
+  function previewImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const imgData = e.target.result;
+      document.getElementById("profile-pic-settings").src = imgData;
+
+      // Optional: update profile preview live (without saving)
+      document.getElementById("profile-pic").src = imgData;
+    };
+
+    if (file) {
+      reader.readAsDataURL(file); // convert image to base64
+    }
+  }
+</script>
+
 </body>
 
 </html>
