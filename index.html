@@ -196,6 +196,20 @@
   </div>
 
   <script>
+    // Show the selected section (dashboard, services, or settings)
+    function showSection(section) {
+      const sections = ['dashboard', 'services', 'settings'];
+      sections.forEach(s => document.getElementById(s).classList.add('hidden'));
+      document.getElementById(section).classList.remove('hidden');
+    }
+
+    // Logout functionality
+    function logout() {
+      // Clear any stored session data or user data (for now, just reload the page to simulate logout)
+      localStorage.removeItem('user');
+      window.location.href = 'login.html'; // Redirect to login page (or adjust accordingly)
+    }
+
     // Load User Data from localStorage
     function loadUserData() {
       const user = JSON.parse(localStorage.getItem('user'));
