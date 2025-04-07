@@ -113,9 +113,27 @@
     </nav>
 
     <div id="dashboard" class="mt-6">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Live Date and Time -->
+      <div class="content-box text-center mb-6">
+        <div id="live-time" class="text-4xl font-bold text-green-400"></div>
+        <div id="live-date" class="text-lg mt-1 text-gray-300"></div>
+      </div>
 
-    <div id="dashboard" class="mt-6">
+      <!-- Profile Card -->
+      <div class="content-box text-center mb-6">
+        <div class="w-24 h-24 rounded-full bg-gray-600 mx-auto flex items-center justify-center border-4 border-green-400" id="profile-pic-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.96 8.96 0 0012 21c2.21 0 4.238-.805 5.879-2.137M15 11a3 3 0 10-6 0 3 3 0 006 0z" />
+          </svg>
+        </div>
+        <div class="text-white mt-2">
+          <p id="full-name" class="text-lg font-bold">John Doe</p>
+          <p id="email" class="text-sm text-gray-300">john.doe@example.com</p>
+          <p id="birthdate" class="text-sm text-gray-300">January 1, 1990</p>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="content-box">
           <h3 class="text-lg font-semibold">Total Users</h3>
@@ -141,7 +159,7 @@
       <h2 class="text-xl font-bold text-green-400 mb-4">Settings</h2>
 
       <div class="text-center mb-4">
-        <div class="w-24 h-24 rounded-full bg-gray-600 mx-auto flex items-center justify-center border-4 border-green-400" id="profile-pic-wrapper">
+        <div class="w-24 h-24 rounded-full bg-gray-600 mx-auto flex items-center justify-center border-4 border-green-400" id="profile-pic-wrapper-settings">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.96 8.96 0 0012 21c2.21 0 4.238-.805 5.879-2.137M15 11a3 3 0 10-6 0 3 3 0 006 0z" />
           </svg>
@@ -168,24 +186,6 @@
   </div>
 
   <script>
-    function updateDateTime() {
-  const now = new Date();
-  const time = now.toLocaleTimeString('en-US', { hour12: false });
-  const date = now.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric'
-  });
-
-  document.getElementById('live-time').textContent = time;
-  document.getElementById('live-date').textContent = date;
-}
-
-setInterval(updateDateTime, 1000);
-updateDateTime(); // Initial call
-  </script>
-      
-  <script>
     const services = [
       {
         source: "Nex Genix Business School",
@@ -208,62 +208,4 @@ updateDateTime(); // Initial call
 
     function showSection(section) {
       document.getElementById('dashboard').classList.add('hidden');
-      document.getElementById('services').classList.add('hidden');
-      document.getElementById('settings').classList.add('hidden');
-      document.getElementById(section).classList.remove('hidden');
-    }
-
-    function fetchData() {
-      const container = document.getElementById('service-list');
-      container.innerHTML = '';
-
-      services.forEach(service => {
-        const header = document.createElement('h4');
-        header.className = 'text-lg font-semibold text-white';
-        header.textContent = service.source;
-        container.appendChild(header);
-
-        const ul = document.createElement('ul');
-        ul.className = 'list-disc list-inside text-gray-300';
-        service.products.forEach(product => {
-          const li = document.createElement('li');
-          li.textContent = product;
-          ul.appendChild(li);
-        });
-
-        container.appendChild(ul);
-      });
-    }
-
-    function previewImage(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const wrapper = document.getElementById("profile-pic-wrapper");
-          wrapper.innerHTML = `<img src="${e.target.result}" alt="Profile Picture" class="w-full h-full object-cover rounded-full">`;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function logout() {
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("user");
-      window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
-    }
-
-    // Redirect if not logged in
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-      window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
-    }
-
-    // Initial load
-    window.onload = () => {
-      showSection('dashboard');
-      fetchData();
-    };
-  </script>
-</body>
-
-</html>
+      document.getElementById('services').class
