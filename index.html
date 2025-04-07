@@ -314,15 +314,25 @@
   window.onload = () => {
     updateDateTime();
     loadUserData();
+
+    // If the user is not logged in, redirect to login page and prevent back navigation
+    if (!localStorage.getItem('user')) {
+      window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
+    }
+
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function() {
+      window.history.pushState(null, "", window.location.href);
+    };
   };
 
   function logout() {
-  // Optional: Clear any stored user data (like localStorage)
-  localStorage.removeItem('user');
+    // Clear the user data from localStorage
+    localStorage.removeItem('user');
 
-  // Redirect to login-signup page
-  window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
-}
+    // Redirect to login-signup page
+    window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
+  }
 </script>
 
 </body>
