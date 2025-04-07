@@ -13,18 +13,18 @@
       color: white;
       font-family: sans-serif;
     }
-    
+
     .sidebar {
       background-color: #2d3748;
     }
-    
+
     .content-box {
       background-color: #2d3748;
       padding: 1.5rem;
       border-radius: 1rem;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
-    
+
     .input {
       width: 100%;
       padding: 0.75rem;
@@ -33,12 +33,12 @@
       border-radius: 0.5rem;
       color: white;
     }
-    
+
     .input:focus {
       border-color: #48bb78;
       box-shadow: 0 0 0 2px #48bb78;
     }
-    
+
     .button {
       background-color: #48bb78;
       color: white;
@@ -46,15 +46,15 @@
       border-radius: 0.5rem;
       font-weight: 600;
     }
-    
+
     .button:hover {
       background-color: #38a169;
     }
-    
+
     .dropdown:hover .dropdown-menu {
       display: block;
     }
-    
+
     .dropdown-menu {
       display: none;
       position: absolute;
@@ -64,33 +64,33 @@
       min-width: 160px;
       z-index: 10;
     }
-    
+
     .dropdown-menu a {
       padding: 0.75rem;
       color: white;
       text-decoration: none;
       display: block;
     }
-    
+
     .dropdown-menu a:hover {
       background-color: #38a169;
     }
-    
+
     .button-container {
       display: flex;
       gap: 1rem;
     }
-    
+
     .profile-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    
+
     .profile-info {
       margin-left: 1rem;
     }
-    
+
     .profile-pic-wrapper img {
       width: 80px;
       height: 80px;
@@ -135,14 +135,15 @@
       <div id="current-date" class="text-sm"></div>
     </div>
 
-    <!-- Main Profile Card (reflecting Settings changes) -->
+    <!-- Profile Card -->
     <div class="content-box profile-card mb-6">
-      <div class="profile-pic-wrapper" id="profile-pic-wrapper-main">
-        <img id="profile-pic-main" src="default-profile-pic.jpg" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
+      <div class="profile-pic-wrapper" id="profile-pic-wrapper">
+        <img id="profile-pic-main" src="" alt="Profile Picture">
       </div>
       <div class="profile-info">
-        <p id="full-name-main" class="text-lg font-bold">User Name</p>
-        <p id="birthdate-main" class="text-sm text-gray-300">MM/DD/YYYY</p>
+        <p id="full-name" class="text-lg font-bold">User Name</p>
+        <p id="email" class="text-sm text-gray-300">email@example.com</p>
+        <p id="birthdate" class="text-sm text-gray-300">MM/DD/YYYY</p>
       </div>
       <div class="flex-grow"></div>
     </div>
@@ -165,25 +166,43 @@
       </div>
     </div>
 
-    <!-- Settings Section -->
+    <!-- Services Section (added for functionality) -->
+    <div id="services" class="hidden mt-6">
+      <div class="content-box">
+        <h2 class="text-xl font-bold">Subscribed Services</h2>
+        <p class="text-gray-300">You currently have access to these services...</p>
+      </div>
+    </div>
+
+    <!-- Settings -->
     <div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-4">
       <h2 class="text-2xl font-bold text-primary text-center">Settings</h2>
 
       <div class="text-center">
-        <!-- Use a unique id for settings profile picture -->
-        <img id="profile-pic-settings" src="https://via.placeholder.com/100" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-primary" />
+        <img id="profile-pic-settings" src="https://via.placeholder.com/100" alt="Profile Picture"
+          class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-primary" />
         <label for="profile-upload" class="block mt-2 text-primary cursor-pointer">Change Profile Picture</label>
         <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
       </div>
 
       <div>
         <label class="block mb-1">Full Name</label>
-        <input type="text" id="full-name-settings" placeholder="John Doe" class="w-full bg-darkInput p-3 rounded-lg border border-darkSidebar focus:ring-2 focus:ring-primary" />
+        <input type="text" id="full-name-settings" class="input" placeholder="John Doe" />
+      </div>
+
+      <div>
+        <label class="block mb-1">Email</label>
+        <input type="email" id="email-settings" class="input" placeholder="john@example.com" />
       </div>
 
       <div>
         <label class="block mb-1">Birthdate</label>
-        <input type="date" id="birthdate-settings" class="w-full bg-darkInput p-3 rounded-lg border border-darkSidebar focus:ring-2 focus:ring-primary" />
+        <input type="date" id="birthdate-settings" class="input" />
+      </div>
+
+      <div>
+        <label class="block mb-1">New Password</label>
+        <input type="password" class="input" placeholder="••••••••" />
       </div>
 
       <button class="w-full mt-4 bg-primary py-3 rounded-lg font-semibold hover:bg-green-600" onclick="saveSettings()">Save Changes</button>
@@ -191,54 +210,6 @@
   </div>
 
   <script>
-    // --- User Data Functions ---
-
-    // Load user data from localStorage and update the main profile card
-    function loadUserData() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        document.getElementById('profile-pic-main').src = user.profilePic ? user.profilePic : 'default-profile-pic.jpg';
-        document.getElementById('full-name-main').textContent = user.fullName || 'User Name';
-        document.getElementById('birthdate-main').textContent = user.birthdate || 'MM/DD/YYYY';
-      }
-    }
-
-    // Load user data into settings inputs
-    function loadSettings() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        document.getElementById('profile-pic-settings').src = user.profilePic ? user.profilePic : 'https://via.placeholder.com/100';
-        document.getElementById('full-name-settings').value = user.fullName || '';
-        document.getElementById('birthdate-settings').value = user.birthdate || '';
-      }
-    }
-
-    // Save settings from the settings form and update the main profile card
-    function saveSettings() {
-      const fullName = document.getElementById('full-name-settings').value;
-      const birthdate = document.getElementById('birthdate-settings').value;
-      const profilePic = document.getElementById('profile-pic-settings').src;
-
-      const user = {
-        fullName: fullName,
-        birthdate: birthdate,
-        profilePic: profilePic
-      };
-      localStorage.setItem('user', JSON.stringify(user));
-      loadUserData();
-      alert('Settings saved!');
-    }
-
-    // --- Time and Date Function ---
-    function updateDateTime() {
-      const date = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('current-time').textContent = date.toLocaleTimeString();
-      document.getElementById('current-date').textContent = date.toLocaleDateString(undefined, options);
-    }
-    setInterval(updateDateTime, 1000);
-
-    // --- Section Navigation ---
     function showSection(id) {
       const sections = ['dashboard', 'services', 'settings'];
       sections.forEach(section => {
@@ -247,21 +218,12 @@
       document.getElementById(id).classList.remove('hidden');
     }
 
-    // --- Logout Function ---
-    function logout() {
-      // Clear user data and redirect (adjust redirect as needed)
-      localStorage.removeItem('user');
-      window.location.href = 'login.html';
-    }
-
-    // --- Image Preview Function ---
     function previewImage(event) {
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           const imgData = e.target.result;
-          // Update settings image and main profile card preview
           document.getElementById("profile-pic-settings").src = imgData;
           document.getElementById("profile-pic-main").src = imgData;
         };
@@ -269,13 +231,46 @@
       }
     }
 
-    // --- On Page Load ---
-    window.onload = function() {
+    function loadUserData() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('profile-pic-main').src = user.profilePic || 'default-profile-pic.jpg';
+        document.getElementById('profile-pic-settings').src = user.profilePic || 'default-profile-pic.jpg';
+        document.getElementById('full-name').textContent = user.fullName;
+        document.getElementById('email').textContent = user.email;
+        document.getElementById('birthdate').textContent = user.birthdate;
+
+        document.getElementById('full-name-settings').value = user.fullName;
+        document.getElementById('email-settings').value = user.email;
+        document.getElementById('birthdate-settings').value = user.birthdate;
+      }
+    }
+
+    function saveSettings() {
+      const fullName = document.getElementById('full-name-settings').value;
+      const email = document.getElementById('email-settings').value;
+      const birthdate = document.getElementById('birthdate-settings').value;
+      const profilePic = document.getElementById('profile-pic-settings').src;
+
+      const user = { fullName, email, birthdate, profilePic };
+      localStorage.setItem('user', JSON.stringify(user));
       loadUserData();
-      loadSettings();
+    }
+
+    function updateDateTime() {
+      const date = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('current-time').textContent = date.toLocaleTimeString();
+      document.getElementById('current-date').textContent = date.toLocaleDateString(undefined, options);
+    }
+
+    setInterval(updateDateTime, 1000);
+    window.onload = () => {
       updateDateTime();
+      loadUserData();
     };
   </script>
+
 </body>
 
 </html>
