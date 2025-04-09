@@ -158,6 +158,8 @@
       <li class="cursor-pointer hover:text-green-400" onclick="showSection('dashboard')">Dashboard</li>
       <li class="cursor-pointer hover:text-green-400" onclick="showSection('services')">Subscribed Services</li>
       <li class="cursor-pointer hover:text-green-400" onclick="showSection('settings')">Settings</li>
+      <li class="cursor-pointer hover:text-green-400" onclick="showSection('login-history')">Login History</li>
+      <li class="cursor-pointer hover:text-green-400" onclick="showSection('open-forum')">Open Forum</li>
     </ul>
   </div>
 
@@ -251,67 +253,57 @@
       </div>
     </div>
 
-    <!-- Services Section -->
-    <div id="services" class="hidden mt-6">
+    <!-- Login History Section -->
+    <div id="login-history" class="hidden mt-6">
+      <h2 class="section-title">Login History</h2>
       <div class="content-box">
-        <h2 class="section-title">Subscribed Services</h2>
-        <p class="text-muted">You currently have access to these services...</p>
+        <ul class="text-sm text-muted">
+          <li>📅 March 20, 2024 - 10:15 AM</li>
+          <li>📅 March 18, 2024 - 2:45 PM</li>
+          <li>📅 March 10, 2024 - 8:30 AM</li>
+        </ul>
       </div>
     </div>
 
-    <!-- Settings Section -->
-    <div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-6">
-      <h2 class="section-title text-center">Settings</h2>
-
-      <!-- Profile Picture -->
-      <div class="text-center space-y-2">
-        <img id="profile-pic-settings" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-green-400" />
-        <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
-          <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
-          <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
-        </div>
-        <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+    <!-- Open Forum Section -->
+    <div id="open-forum" class="hidden mt-6">
+      <h2 class="section-title">Open Forum</h2>
+      <div class="content-box">
+        <p class="text-sm text-muted">Join the conversation with peers and instructors!</p>
       </div>
+    </div>
 
-      <div>
-        <label class="block mb-1">Full Name</label>
-        <input type="text" id="full-name-settings" class="input" placeholder="John Doe" />
+    <!-- Services Section -->
+    <div id="services" class="hidden mt-6">
+      <h2 class="section-title">Subscribed Services</h2>
+      <ul class="text-sm text-muted">
+        <li>📚 Digital Design and Visual Communication Services</li>
+        <li>📝 Writing Services</li>
+        <li>💼 Human Resource Outsource</li>
+      </ul>
+    </div>
+
+    <!-- Users Section -->
+    <div id="users" class="hidden mt-6">
+      <h2 class="section-title">Users</h2>
+      <div class="content-box">
+        <ul class="text-sm text-muted">
+          <li>👩‍🏫 Teacher: John Doe</li>
+          <li>👨‍💼 Client: Jane Smith</li>
+        </ul>
       </div>
+    </div>
 
-      <div>
-        <label class="block mb-1">Email</label>
-        <input type="email" id="email-settings" class="input" placeholder="john@example.com" />
-      </div>
-
-      <div>
-        <label class="block mb-1">Birthdate</label>
-        <input type="date" id="birthdate-settings" class="input" />
-      </div>
-
-      <!-- Password Fields -->
-      <div class="space-y-4">
-        <label class="block text-lg font-semibold text-green-300">Reset Password</label>
-
-        <div class="relative">
-          <input type="password" id="old-password" class="input" placeholder="Old Password" />
-          <span onclick="togglePassword('old-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
-        </div>
-
-        <div class="relative">
-          <input type="password" id="new-password" class="input" placeholder="New Password" />
-          <span onclick="togglePassword('new-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
-        </div>
-
-        <div class="relative">
-          <input type="password" id="confirm-password" class="input" placeholder="Confirm Password" />
-          <span onclick="togglePassword('confirm-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
-        </div>
-      </div>
-
-      <button class="w-full mt-4 button" onclick="saveSettings()">Save Changes</button>
-
-      <div id="save-message" class="hidden text-center text-green-400 font-semibold mt-2">
-        ✅ Changes saved successfully!
+    <!-- Courses Section -->
+    <div id="courses" class="hidden mt-6">
+      <h2 class="section-title">Courses Enrolled</h2>
+      <div class="content-box">
+        <ul class="text-sm text-muted">
+          <li>📘 Complimentary Courses: Lesson 1-5</li>
+          <li>📙 Premium Courses: Language Mastery</li>
+          <li>📚 Business Excellence</li>
+          <li>📖 Grade-Level Learning Series</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -320,7 +312,7 @@
     const defaultProfile = "https://cdn-icons-png.flaticon.com/512/1144/1144760.png";
 
     function showSection(id) {
-      const sections = ['dashboard', 'services', 'settings'];
+      const sections = ['dashboard', 'services', 'settings', 'login-history', 'open-forum', 'users', 'courses'];
       sections.forEach(section => {
         document.getElementById(section).classList.add('hidden');
       });
