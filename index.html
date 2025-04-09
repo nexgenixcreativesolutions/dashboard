@@ -183,17 +183,17 @@
       <div id="current-date" class="text-sm text-muted"></div>
     </div>
 
-    <!-- Profile Card -->
-    <div class="content-box profile-card mb-6">
-      <div class="profile-pic-wrapper" id="profile-pic-wrapper">
-        <img id="profile-pic-main" src="" alt="Profile Picture">
-      </div>
-      <div class="profile-info">
-        <p id="full-name" class="text-lg font-bold">User Name</p>
-        <p id="email" class="text-sm text-muted">email@example.com</p>
-        <p id="birthdate" class="text-sm text-muted">MM/DD/YYYY</p>
-      </div>
-    </div>
+   <!-- Profile Card -->
+<div class="content-box profile-card mb-6">
+  <div class="profile-pic-wrapper" id="profile-pic-wrapper">
+    <img id="profile-pic-main" src="" alt="Profile Picture" onerror="this.onerror=null;this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
+  </div>
+  <div class="profile-info">
+    <p id="full-name" class="text-lg font-bold">User Name</p>
+    <p id="email" class="text-sm text-muted">email@example.com</p>
+    <p id="birthdate" class="text-sm text-muted">MM/DD/YYYY</p>
+  </div>
+</div>
 
     <!-- Dashboard Section -->
     <div id="dashboard" class="mt-6">
@@ -259,19 +259,20 @@
       </div>
     </div>
 
-    <!-- Settings Section -->
-    <div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-6">
-      <h2 class="section-title text-center">Settings</h2>
+<!-- Settings Section -->
+<div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-6">
+  <h2 class="section-title text-center">Settings</h2>
 
-      <!-- Profile Picture -->
-      <div class="text-center space-y-2">
-        <img id="profile-pic-settings" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-green-400" />
-        <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
-          <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
-          <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
-        </div>
-        <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
-      </div>
+  <!-- Profile Picture -->
+  <div class="text-center space-y-2">
+    <img id="profile-pic-settings" src="https://cdn-icons-png.flaticon.com/512/5529/552909.png" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-green-400" onerror="this.onerror=null;this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
+    <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
+      <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
+      <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
+    </div>
+    <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+  </div>
+</div>
 
       <div>
         <label class="block mb-1">Full Name</label>
@@ -317,7 +318,7 @@
   </div>
 
   <script>
-    const defaultProfile = "https://cdn-icons-png.flaticon.com/512/1144/1144760.png";
+    const defaultProfile = "https://cdn-icons-png.flaticon.com/512/5529/552909.png";
 
     function showSection(id) {
       const sections = ['dashboard', 'services', 'settings'];
