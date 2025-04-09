@@ -16,6 +16,7 @@
 
     .sidebar {
       background-color: #2d3748;
+      padding: 1.5rem;
     }
 
     .content-box {
@@ -45,6 +46,7 @@
       padding: 0.75rem;
       border-radius: 0.5rem;
       font-weight: 600;
+      transition: background-color 0.3s;
     }
 
     .button:hover {
@@ -97,15 +99,62 @@
       object-fit: cover;
       border-radius: 50%;
     }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 1.125rem;
+      font-weight: 500;
+    }
+
+    .text-muted {
+      color: #cbd5e0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #48bb78;
+    }
+
+    .text-sm {
+      font-size: 0.875rem;
+    }
+
+    .card {
+      background-color: #2d3748;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-container {
+      margin-top: 2rem;
+    }
+
+    .header-button {
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: bold;
+      background-color: #48bb78;
+      color: white;
+    }
+
+    .header-button:hover {
+      background-color: #38a169;
+    }
   </style>
 </head>
 
 <body class="flex min-h-screen">
 
   <!-- Sidebar -->
-  <div class="sidebar fixed inset-y-0 left-0 w-64 p-5">
-    <h2 class="text-xl font-bold mb-5 text-green-400">Nex Genix</h2>
-    <ul class="space-y-4">
+  <div class="sidebar fixed inset-y-0 left-0 w-64">
+    <h2 class="text-2xl font-bold mb-5 text-green-400">Nex Genix</h2>
+    <ul class="space-y-6">
       <li class="cursor-pointer hover:text-green-400" onclick="showSection('dashboard')">Dashboard</li>
       <li class="cursor-pointer hover:text-green-400" onclick="showSection('services')">Subscribed Services</li>
       <li class="cursor-pointer hover:text-green-400" onclick="showSection('settings')">Settings</li>
@@ -117,7 +166,6 @@
     <nav class="flex justify-between bg-gray-800 p-4 rounded-lg">
       <input type="text" placeholder="Search..." class="input w-1/3">
       <div class="button-container">
-        <!-- Home Button Dropdown -->
         <div class="dropdown relative">
           <button class="button">Home</button>
           <div class="dropdown-menu absolute right-0 mt-2">
@@ -132,7 +180,7 @@
     <!-- Date and Time Display -->
     <div id="date-time" class="text-center text-xl mb-6">
       <div id="current-time" class="font-semibold"></div>
-      <div id="current-date" class="text-sm"></div>
+      <div id="current-date" class="text-sm text-muted"></div>
     </div>
 
     <!-- Profile Card -->
@@ -142,61 +190,49 @@
       </div>
       <div class="profile-info">
         <p id="full-name" class="text-lg font-bold">User Name</p>
-        <p id="email" class="text-sm text-gray-300">email@example.com</p>
-        <p id="birthdate" class="text-sm text-gray-300">MM/DD/YYYY</p>
+        <p id="email" class="text-sm text-muted">email@example.com</p>
+        <p id="birthdate" class="text-sm text-muted">MM/DD/YYYY</p>
       </div>
-      <div class="flex-grow"></div>
     </div>
 
     <!-- Dashboard Section -->
     <div id="dashboard" class="mt-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="content-box">
-          <h3 class="text-lg font-semibold">Total Users</h3>
+          <h3 class="card-title">Total Users</h3>
           <p class="text-2xl font-bold">1,250</p>
         </div>
         <div class="content-box">
-          <h3 class="text-lg font-semibold">Courses</h3>
+          <h3 class="card-title">Courses</h3>
           <p class="text-2xl font-bold">45</p>
         </div>
         <div class="content-box">
-          <h3 class="text-lg font-semibold">Active Sessions</h3>
+          <h3 class="card-title">Active Sessions</h3>
           <p class="text-2xl font-bold">120</p>
         </div>
       </div>
-    </div>
 
-          <!-- Dashboard Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Course Progress -->
-        <div class="bg-white rounded-2xl shadow p-4">
+        <div class="card">
           <div class="flex items-center gap-3 mb-4">
             <div data-icon="bookOpen"></div>
-            <h2 class="text-lg font-medium">Your Courses</h2>
+            <h2 class="card-title">Your Courses</h2>
           </div>
-          <p class="text-sm text-gray-600 mb-2">
-            Intro to Project Management
-          </p>
+          <p class="card-subtitle">Intro to Project Management</p>
           <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-            <div
-              class="bg-blue-600 h-2.5 rounded-full"
-              style="width: 70%"
-            ></div>
+            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 70%"></div>
           </div>
-          <button
-            class="mt-2 w-full bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-700 transition"
-          >
-            Resume Course
-          </button>
+          <button class="button mt-2 w-full">Resume Course</button>
         </div>
 
         <!-- Upcoming Tasks -->
-        <div class="bg-white rounded-2xl shadow p-4">
+        <div class="card">
           <div class="flex items-center gap-3 mb-4">
             <div data-icon="bell"></div>
-            <h2 class="text-lg font-medium">Upcoming Deadlines</h2>
+            <h2 class="card-title">Upcoming Deadlines</h2>
           </div>
-          <ul class="text-sm text-gray-600 space-y-2">
+          <ul class="text-sm text-muted space-y-2">
             <li>📅 Quiz: Module 2 - Due April 10</li>
             <li>📅 Assignment: Final Project - Due April 15</li>
             <li>📅 Peer Review - Due April 18</li>
@@ -204,179 +240,168 @@
         </div>
 
         <!-- Certifications -->
-        <div class="bg-white rounded-2xl shadow p-4">
+        <div class="card">
           <div class="flex items-center gap-3 mb-4">
             <div data-icon="award"></div>
-            <h2 class="text-lg font-medium">Certifications</h2>
+            <h2 class="card-title">Certifications</h2>
           </div>
-          <p class="text-sm text-gray-600 mb-2">
-            📄 Project Management - Earned Mar 2024
-          </p>
-          <p class="text-sm text-gray-600">
-            📄 Agile Basics - Earned Jan 2024
-          </p>
+          <p class="card-subtitle">📄 Project Management - Earned Mar 2024</p>
+          <p class="card-subtitle">📄 Agile Basics - Earned Jan 2024</p>
         </div>
       </div>
     </div>
 
-    <!-- Services Section (added for functionality) -->
+    <!-- Services Section -->
     <div id="services" class="hidden mt-6">
       <div class="content-box">
-        <h2 class="text-xl font-bold">Subscribed Services</h2>
-        <p class="text-gray-300">You currently have access to these services...</p>
+        <h2 class="section-title">Subscribed Services</h2>
+        <p class="text-muted">You currently have access to these services...</p>
       </div>
     </div>
 
-    <!-- Settings -->
-<div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-6">
-  <h2 class="text-2xl font-bold text-green-400 text-center">Settings</h2>
+    <!-- Settings Section -->
+    <div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-6">
+      <h2 class="section-title text-center">Settings</h2>
 
-  <!-- Profile Picture -->
-  <div class="text-center space-y-2">
-    <img id="profile-pic-settings" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
-      alt="Profile Picture"
-      class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-green-400" />
-    <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
-      <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
-      <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
+      <!-- Profile Picture -->
+      <div class="text-center space-y-2">
+        <img id="profile-pic-settings" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-green-400" />
+        <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
+          <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
+          <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
+        </div>
+        <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+      </div>
+
+      <div>
+        <label class="block mb-1">Full Name</label>
+        <input type="text" id="full-name-settings" class="input" placeholder="John Doe" />
+      </div>
+
+      <div>
+        <label class="block mb-1">Email</label>
+        <input type="email" id="email-settings" class="input" placeholder="john@example.com" />
+      </div>
+
+      <div>
+        <label class="block mb-1">Birthdate</label>
+        <input type="date" id="birthdate-settings" class="input" />
+      </div>
+
+      <!-- Password Fields -->
+      <div class="space-y-4">
+        <label class="block text-lg font-semibold text-green-300">Reset Password</label>
+
+        <div class="relative">
+          <input type="password" id="old-password" class="input" placeholder="Old Password" />
+          <span onclick="togglePassword('old-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
+        </div>
+
+        <div class="relative">
+          <input type="password" id="new-password" class="input" placeholder="New Password" />
+          <span onclick="togglePassword('new-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
+        </div>
+
+        <div class="relative">
+          <input type="password" id="confirm-password" class="input" placeholder="Confirm Password" />
+          <span onclick="togglePassword('confirm-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
+        </div>
+      </div>
+
+      <button class="w-full mt-4 button" onclick="saveSettings()">Save Changes</button>
+
+      <div id="save-message" class="hidden text-center text-green-400 font-semibold mt-2">
+        ✅ Changes saved successfully!
+      </div>
     </div>
-    <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
   </div>
 
-  <div>
-    <label class="block mb-1">Full Name</label>
-    <input type="text" id="full-name-settings" class="input" placeholder="John Doe" />
-  </div>
+  <script>
+    const defaultProfile = "https://cdn-icons-png.flaticon.com/512/1144/1144760.png";
 
-  <div>
-    <label class="block mb-1">Email</label>
-    <input type="email" id="email-settings" class="input" placeholder="john@example.com" />
-  </div>
-
-  <div>
-    <label class="block mb-1">Birthdate</label>
-    <input type="date" id="birthdate-settings" class="input" />
-  </div>
-
-  <!-- Password Fields -->
-  <div class="space-y-4">
-    <label class="block text-lg font-semibold text-green-300">Reset Password</label>
-
-    <div class="relative">
-      <input type="password" id="old-password" class="input" placeholder="Old Password" />
-      <span onclick="togglePassword('old-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
-    </div>
-
-    <div class="relative">
-      <input type="password" id="new-password" class="input" placeholder="New Password" />
-      <span onclick="togglePassword('new-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
-    </div>
-
-    <div class="relative">
-      <input type="password" id="confirm-password" class="input" placeholder="Confirm Password" />
-      <span onclick="togglePassword('confirm-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
-    </div>
-  </div>
-
-  <!-- Save Button -->
-  <button class="w-full mt-4 button" onclick="saveSettings()">Save Changes</button>
-
-  <!-- Save Message -->
-  <div id="save-message" class="hidden text-center text-green-400 font-semibold mt-2">
-    ✅ Changes saved successfully!
-  </div>
-</div>
-
-<script>
-  const defaultProfile = "https://cdn-icons-png.flaticon.com/512/1144/1144760.png";
-
-  function showSection(id) {
-    const sections = ['dashboard', 'services', 'settings'];
-    sections.forEach(section => {
-      document.getElementById(section).classList.add('hidden');
-    });
-    document.getElementById(id).classList.remove('hidden');
-  }
-
-  function previewImage(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const imgData = e.target.result;
-        document.getElementById("profile-pic-settings").src = imgData;
-        document.getElementById("profile-pic-main").src = imgData;
-      };
-      reader.readAsDataURL(file);
+    function showSection(id) {
+      const sections = ['dashboard', 'services', 'settings'];
+      sections.forEach(section => {
+        document.getElementById(section).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
     }
-  }
 
-  function removeProfileImage() {
-    document.getElementById("profile-pic-settings").src = defaultProfile;
-    document.getElementById("profile-pic-main").src = defaultProfile;
-    document.getElementById("profile-upload").value = null;
-  }
-
-  function togglePassword(id) {
-    const input = document.getElementById(id);
-    input.type = input.type === "password" ? "text" : "password";
-  }
-
-  function saveSettings() {
-    const fullName = document.getElementById('full-name-settings').value;
-    const email = document.getElementById('email-settings').value;
-    const birthdate = document.getElementById('birthdate-settings').value;
-    const profilePic = document.getElementById('profile-pic-settings').src;
-
-    const user = { fullName, email, birthdate, profilePic };
-    localStorage.setItem('user', JSON.stringify(user));
-    loadUserData();
-
-    // Save confirmation message
-    const msg = document.getElementById("save-message");
-    if (msg) {
-      msg.classList.remove("hidden");
-      setTimeout(() => msg.classList.add("hidden"), 3000);
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imgData = e.target.result;
+          document.getElementById("profile-pic-settings").src = imgData;
+          document.getElementById("profile-pic-main").src = imgData;
+        };
+        reader.readAsDataURL(file);
+      }
     }
-  }
 
-  function loadUserData() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      document.getElementById('profile-pic-main').src = user.profilePic || defaultProfile;
-      document.getElementById('profile-pic-settings').src = user.profilePic || defaultProfile;
-      document.getElementById('full-name').textContent = user.fullName;
-      document.getElementById('email').textContent = user.email;
-      document.getElementById('birthdate').textContent = user.birthdate;
-
-      document.getElementById('full-name-settings').value = user.fullName;
-      document.getElementById('email-settings').value = user.email;
-      document.getElementById('birthdate-settings').value = user.birthdate;
+    function removeProfileImage() {
+      document.getElementById("profile-pic-settings").src = defaultProfile;
+      document.getElementById("profile-pic-main").src = defaultProfile;
+      document.getElementById("profile-upload").value = null;
     }
-  }
 
-  function updateDateTime() {
-    const date = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById('current-time').textContent = date.toLocaleTimeString();
-    document.getElementById('current-date').textContent = date.toLocaleDateString(undefined, options);
-  }
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
 
-  setInterval(updateDateTime, 1000);
+    function saveSettings() {
+      const fullName = document.getElementById('full-name-settings').value;
+      const email = document.getElementById('email-settings').value;
+      const birthdate = document.getElementById('birthdate-settings').value;
+      const profilePic = document.getElementById('profile-pic-settings').src;
 
-  window.onload = () => {
-    updateDateTime();
-    loadUserData();
-  };
+      const user = { fullName, email, birthdate, profilePic };
+      localStorage.setItem('user', JSON.stringify(user));
+      loadUserData();
 
-  function logout() {
-  // Optional: Clear any stored user data (like localStorage)
-  localStorage.removeItem('user');
+      const msg = document.getElementById("save-message");
+      if (msg) {
+        msg.classList.remove("hidden");
+        setTimeout(() => msg.classList.add("hidden"), 3000);
+      }
+    }
 
-  // Redirect to login-signup page
-  window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
-}
-</script>
+    function loadUserData() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('profile-pic-main').src = user.profilePic || defaultProfile;
+        document.getElementById('profile-pic-settings').src = user.profilePic || defaultProfile;
+        document.getElementById('full-name').textContent = user.fullName;
+        document.getElementById('email').textContent = user.email;
+        document.getElementById('birthdate').textContent = user.birthdate;
+
+        document.getElementById('full-name-settings').value = user.fullName;
+        document.getElementById('email-settings').value = user.email;
+        document.getElementById('birthdate-settings').value = user.birthdate;
+      }
+    }
+
+    function updateDateTime() {
+      const date = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('current-time').textContent = date.toLocaleTimeString();
+      document.getElementById('current-date').textContent = date.toLocaleDateString(undefined, options);
+    }
+
+    setInterval(updateDateTime, 1000);
+
+    window.onload = () => {
+      updateDateTime();
+      loadUserData();
+    };
+
+    function logout() {
+      localStorage.removeItem('user');
+      window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
+    }
+  </script>
 
 </body>
 
