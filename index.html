@@ -183,17 +183,17 @@
       <div id="current-date" class="text-sm text-muted"></div>
     </div>
 
-   <!-- Profile Card -->
-<div class="content-box profile-card mb-6">
-  <div class="profile-pic-wrapper" id="profile-pic-wrapper">
-    <img id="profile-pic-main" src="" alt="Profile Picture" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
-  </div>
-  <div class="profile-info">
-    <p id="full-name" class="text-lg font-bold">User Name</p>
-    <p id="email" class="text-sm text-muted">email@example.com</p>
-    <p id="birthdate" class="text-sm text-muted">MM/DD/YYYY</p>
-  </div>
-</div>
+    <!-- Profile Card -->
+    <div class="content-box profile-card mb-6">
+      <div class="profile-pic-wrapper">
+        <img id="profile-pic-main" src="" alt="Profile Picture" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
+      </div>
+      <div class="profile-info">
+        <p id="full-name" class="text-lg font-bold">User Name</p>
+        <p id="email" class="text-sm text-muted">email@example.com</p>
+        <p id="birthdate" class="text-sm text-muted">MM/DD/YYYY</p>
+      </div>
+    </div>
 
     <!-- Dashboard Section -->
     <div id="dashboard" class="mt-6">
@@ -259,21 +259,21 @@
       </div>
     </div>
 
-<!-- Settings Section -->
-<div id="settings" class="hidden bg-darkSidebar p-6 rounded-2xl shadow-xl space-y-6">
-  <h2 class="section-title text-center">Settings</h2>
+    <!-- Settings Section -->
+    <div id="settings" class="hidden mt-6">
+      <h2 class="section-title text-center">Settings</h2>
 
-  <!-- Profile Picture -->
-  <div class="text-center space-y-2">
-    <img id="profile-pic-main" src="" alt="Profile Picture" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
-    <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
-      <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
-      <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
-    </div>
-    <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
-  </div>
-</div>
+      <!-- Profile Picture -->
+      <div class="text-center space-y-2">
+        <img id="profile-pic-settings" src="" alt="Profile Picture" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
+        <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
+          <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
+          <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
+        </div>
+        <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+      </div>
 
+      <!-- Other Settings Fields -->
       <div>
         <label class="block mb-1">Full Name</label>
         <input type="text" id="full-name-settings" class="input" placeholder="John Doe" />
@@ -315,6 +315,7 @@
         ✅ Changes saved successfully!
       </div>
     </div>
+
   </div>
 
   <script>
@@ -341,70 +342,6 @@
       }
     }
 
-function removeProfileImage() {
-    const defaultProfile = "https://cdn-icons-png.flaticon.com/512/5529/552909.png";
-    document.getElementById("profile-pic-settings").src = defaultProfile;
-    document.getElementById("profile-pic-main").src = defaultProfile;
-    document.getElementById("profile-upload").value = null;
-}
-
-    function togglePassword(id) {
-      const input = document.getElementById(id);
-      input.type = input.type === "password" ? "text" : "password";
-    }
-
-    function saveSettings() {
-      const fullName = document.getElementById('full-name-settings').value;
-      const email = document.getElementById('email-settings').value;
-      const birthdate = document.getElementById('birthdate-settings').value;
-      const profilePic = document.getElementById('profile-pic-settings').src;
-
-      const user = { fullName, email, birthdate, profilePic };
-      localStorage.setItem('user', JSON.stringify(user));
-      loadUserData();
-
-      const msg = document.getElementById("save-message");
-      if (msg) {
-        msg.classList.remove("hidden");
-        setTimeout(() => msg.classList.add("hidden"), 3000);
-      }
-    }
-
-    function loadUserData() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        document.getElementById('profile-pic-main').src = user.profilePic || defaultProfile;
-        document.getElementById('profile-pic-settings').src = user.profilePic || defaultProfile;
-        document.getElementById('full-name').textContent = user.fullName;
-        document.getElementById('email').textContent = user.email;
-        document.getElementById('birthdate').textContent = user.birthdate;
-
-        document.getElementById('full-name-settings').value = user.fullName;
-        document.getElementById('email-settings').value = user.email;
-        document.getElementById('birthdate-settings').value = user.birthdate;
-      }
-    }
-
-    function updateDateTime() {
-      const date = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('current-time').textContent = date.toLocaleTimeString();
-      document.getElementById('current-date').textContent = date.toLocaleDateString(undefined, options);
-    }
-
-    setInterval(updateDateTime, 1000);
-
-    window.onload = () => {
-      updateDateTime();
-      loadUserData();
-    };
-
-    function logout() {
-      localStorage.removeItem('user');
-      window.location.href = "https://nexgenixcreativesolutions.github.io/login-signup/";
-    }
-  </script>
-
-</body>
-
-</html>
+    function removeProfileImage() {
+      const defaultProfile = "https://cdn-icons-png.flaticon.com/512/5529/552909.png";
+      document.getElementById("profile-p
