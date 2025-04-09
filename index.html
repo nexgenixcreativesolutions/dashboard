@@ -186,7 +186,7 @@
    <!-- Profile Card -->
 <div class="content-box profile-card mb-6">
   <div class="profile-pic-wrapper" id="profile-pic-wrapper">
-    <img id="profile-pic-main" src="" alt="Profile Picture" onerror="this.onerror=null;this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
+    <img id="profile-pic-main" src="" alt="Profile Picture" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
   </div>
   <div class="profile-info">
     <p id="full-name" class="text-lg font-bold">User Name</p>
@@ -265,7 +265,7 @@
 
   <!-- Profile Picture -->
   <div class="text-center space-y-2">
-    <img id="profile-pic-settings" src="https://cdn-icons-png.flaticon.com/512/5529/552909.png" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-green-400" onerror="this.onerror=null;this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
+    <img id="profile-pic-main" src="" alt="Profile Picture" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
     <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
       <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
       <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
@@ -341,11 +341,12 @@
       }
     }
 
-    function removeProfileImage() {
-      document.getElementById("profile-pic-settings").src = defaultProfile;
-      document.getElementById("profile-pic-main").src = defaultProfile;
-      document.getElementById("profile-upload").value = null;
-    }
+function removeProfileImage() {
+    const defaultProfile = "https://cdn-icons-png.flaticon.com/512/5529/552909.png";
+    document.getElementById("profile-pic-settings").src = defaultProfile;
+    document.getElementById("profile-pic-main").src = defaultProfile;
+    document.getElementById("profile-upload").value = null;
+}
 
     function togglePassword(id) {
       const input = document.getElementById(id);
