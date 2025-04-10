@@ -2,21 +2,18 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nex Genix Dashboard Integration</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Nex Genix</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       background-color: #1a202c;
       color: white;
-      font-family: sans-serif;
     }
 
     .sidebar {
       background-color: #2d3748;
-      padding: 1.5rem;
     }
 
     .content-box {
@@ -33,6 +30,7 @@
       border: 1px solid #2d3748;
       border-radius: 0.5rem;
       color: white;
+      outline: none;
     }
 
     .input:focus {
@@ -46,105 +44,32 @@
       padding: 0.75rem;
       border-radius: 0.5rem;
       font-weight: 600;
-      transition: background-color 0.3s;
     }
 
     .button:hover {
       background-color: #38a169;
     }
 
-    .dropdown:hover .dropdown-menu {
-      display: block;
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #48bb78;
     }
 
     .dropdown-menu {
       display: none;
       position: absolute;
+      right: 0;
       background-color: #2d3748;
+      padding: 0.5rem;
       border-radius: 0.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      min-width: 160px;
-      z-index: 10;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
 
-    .dropdown-menu a {
-      padding: 0.75rem;
-      color: white;
-      text-decoration: none;
+    .dropdown:hover .dropdown-menu {
       display: block;
-    }
-
-    .dropdown-menu a:hover {
-      background-color: #38a169;
-    }
-
-    .button-container {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .profile-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .profile-info {
-      margin-left: 1rem;
-    }
-
-    .profile-pic-wrapper img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-
-    .card-subtitle {
-      font-size: 1.125rem;
-      font-weight: 500;
-    }
-
-    .text-muted {
-      color: #cbd5e0;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #48bb78;
-    }
-
-    .text-sm {
-      font-size: 0.875rem;
-    }
-
-    .card {
-      background-color: #2d3748;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .section-container {
-      margin-top: 2rem;
-    }
-
-    .header-button {
-      border-radius: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      font-weight: bold;
-      background-color: #48bb78;
-      color: white;
-    }
-
-    .header-button:hover {
-      background-color: #38a169;
     }
   </style>
 </head>
@@ -152,181 +77,123 @@
 <body class="flex min-h-screen">
 
   <!-- Sidebar -->
-  <div class="sidebar fixed inset-y-0 left-0 w-64">
-    <h2 class="text-2xl font-bold mb-5 text-green-400">Nex Genix</h2>
-    <ul class="space-y-6">
-      <li class="cursor-pointer hover:text-green-400" onclick="showSection('dashboard')">Dashboard</li>
-      <li class="cursor-pointer hover:text-green-400" onclick="showSection('services')">Subscribed Services</li>
-      <li class="cursor-pointer hover:text-green-400" onclick="showSection('settings')">Settings</li>
+  <div class="sidebar fixed inset-y-0 left-0 w-64 p-5 shadow-lg">
+    <h2 class="text-xl font-bold mb-5 text-green-400">Nex Genix</h2>
+    <ul class="space-y-4">
+      <li class="cursor-pointer hover:text-green-400" onclick="showSection
+
+('dashboard')">Dashboard</li>
+      <li class="cursor-pointer hover:text-green-400" onclick="showSection
+
+('services')">Subscribed Services</li>
+      <li class="cursor-pointer hover:text-green-400" onclick="showSection
+
+('settings')">Settings</li>
     </ul>
   </div>
 
   <!-- Main Content -->
   <div class="flex-1 flex flex-col ml-64 p-6">
-    <nav class="flex justify-between bg-gray-800 p-4 rounded-lg">
-      <input type="text" placeholder="Search..." class="input w-1/3">
-      <div class="button-container">
-        <div class="dropdown relative">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between bg-gray-800 p-4 shadow-md rounded-lg">
+      <div class="relative">
+        <input type="text" placeholder="Search..." class="input pl-8">
+      </div>
+      <div class="flex items-center space-x-4">
+        <i class="cursor-pointer">🔔</i>
+        <i class="cursor-pointer">👤</i>
+        <button onclick="window.location.href='/login'" class="button">Logout</button>
+        <div class="relative dropdown">
           <button class="button">Home</button>
-          <div class="dropdown-menu absolute right-0 mt-2">
-            <a href="https://nexgenixbusinessschool.github.io/home" target="_blank">NG Business School</a>
-            <a href="https://nexgenixcreativesolutions.github.io/home" target="_blank">NG Creative Solutions</a>
+          <div class="dropdown-menu">
+            <a href="https://nexgenixbusinessschool.github.io/home/" class="block p-2 
+
+hover:bg-gray-700">NGBS Homepage</a>
+            <a href="https://nexgenixcreativesolutions.github.io/home/" class="block p-2 
+
+hover:bg-gray-700">NGCS Homepage</a>
           </div>
         </div>
-        <button class="button" onclick="logout()">Logout</button>
       </div>
     </nav>
 
-    <!-- Date and Time Display -->
-    <div id="date-time" class="text-center text-xl mb-6">
-      <div id="current-time" class="font-semibold"></div>
-      <div id="current-date" class="text-sm text-muted"></div>
-    </div>
+    <!-- Dynamic Content -->
+    <div id="dynamic-content" class="mt-6">
 
-    <!-- Profile Card -->
-    <div class="content-box profile-card mb-6">
-      <div class="profile-pic-wrapper">
-        <img id="profile-pic-main" src="" alt="Profile Picture" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
-      </div>
-      <div class="profile-info">
-        <p id="full-name" class="text-lg font-bold">User Name</p>
-        <p id="email" class="text-sm text-muted">email@example.com</p>
-        <p id="birthdate" class="text-sm text-muted">MM/DD/YYYY</p>
-      </div>
-    </div>
-
-    <!-- Dashboard Section -->
-    <div id="dashboard" class="mt-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="content-box">
-          <h3 class="card-title">Total Users</h3>
-          <p class="text-2xl font-bold">1,250</p>
-        </div>
-        <div class="content-box">
-          <h3 class="card-title">Courses</h3>
-          <p class="text-2xl font-bold">45</p>
-        </div>
-        <div class="content-box">
-          <h3 class="card-title">Active Sessions</h3>
-          <p class="text-2xl font-bold">120</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Course Progress -->
-        <div class="card">
-          <div class="flex items-center gap-3 mb-4">
-            <div data-icon="bookOpen"></div>
-            <h2 class="card-title">Your Courses</h2>
+      <!-- Default Dashboard -->
+      <div id="dashboard">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="content-box">
+            <h3 class="text-lg font-semibold">Total Users</h3>
+            <p class="text-2xl font-bold">1,250</p>
           </div>
-          <p class="card-subtitle">Intro to Project Management</p>
-          <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 70%"></div>
+          <div class="content-box">
+            <h3 class="text-lg font-semibold">Courses</h3>
+            <p class="text-2xl font-bold">45</p>
           </div>
-          <button class="button mt-2 w-full">Resume Course</button>
-        </div>
-
-        <!-- Upcoming Tasks -->
-        <div class="card">
-          <div class="flex items-center gap-3 mb-4">
-            <div data-icon="bell"></div>
-            <h2 class="card-title">Upcoming Deadlines</h2>
+          <div class="content-box">
+            <h3 class="text-lg font-semibold">Active Sessions</h3>
+            <p class="text-2xl font-bold">120</p>
           </div>
-          <ul class="text-sm text-muted space-y-2">
-            <li>📅 Quiz: Module 2 - Due April 10</li>
-            <li>📅 Assignment: Final Project - Due April 15</li>
-            <li>📅 Peer Review - Due April 18</li>
-          </ul>
-        </div>
-
-        <!-- Certifications -->
-        <div class="card">
-          <div class="flex items-center gap-3 mb-4">
-            <div data-icon="award"></div>
-            <h2 class="card-title">Certifications</h2>
-          </div>
-          <p class="card-subtitle">📄 Project Management - Earned Mar 2024</p>
-          <p class="card-subtitle">📄 Agile Basics - Earned Jan 2024</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Services Section -->
-    <div id="services" class="hidden mt-6">
-      <div class="content-box">
-        <h2 class="section-title">Subscribed Services</h2>
-        <p class="text-muted">You currently have access to these services...</p>
-      </div>
-    </div>
-
-    <!-- Settings Section -->
-    <div id="settings" class="hidden mt-6">
-      <h2 class="section-title text-center">Settings</h2>
-
-      <!-- Profile Picture -->
-      <div class="text-center space-y-2">
-        <img id="profile-pic-settings" src="" alt="Profile Picture" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5529/552909.png';" />
-        <div class="flex justify-center items-center space-x-4 text-sm text-green-300">
-          <label for="profile-upload" class="cursor-pointer hover:underline">Upload Image</label>
-          <button onclick="removeProfileImage()" class="hover:underline">Remove Image</button>
-        </div>
-        <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
-      </div>
-
-      <!-- Other Settings Fields -->
-      <div>
-        <label class="block mb-1">Full Name</label>
-        <input type="text" id="full-name-settings" class="input" placeholder="John Doe" />
-      </div>
-
-      <div>
-        <label class="block mb-1">Email</label>
-        <input type="email" id="email-settings" class="input" placeholder="john@example.com" />
-      </div>
-
-      <div>
-        <label class="block mb-1">Birthdate</label>
-        <input type="date" id="birthdate-settings" class="input" />
-      </div>
-
-      <!-- Password Fields -->
-      <div class="space-y-4">
-        <label class="block text-lg font-semibold text-green-300">Reset Password</label>
-
-        <div class="relative">
-          <input type="password" id="old-password" class="input" placeholder="Old Password" />
-          <span onclick="togglePassword('old-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
-        </div>
-
-        <div class="relative">
-          <input type="password" id="new-password" class="input" placeholder="New Password" />
-          <span onclick="togglePassword('new-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
-        </div>
-
-        <div class="relative">
-          <input type="password" id="confirm-password" class="input" placeholder="Confirm Password" />
-          <span onclick="togglePassword('confirm-password')" class="absolute right-3 top-3 cursor-pointer">👁️</span>
         </div>
       </div>
 
-      <button class="w-full mt-4 button" onclick="saveSettings()">Save Changes</button>
-
-      <div id="save-message" class="hidden text-center text-green-400 font-semibold mt-2">
-        ✅ Changes saved successfully!
+      <!-- Services -->
+      <div id="services" class="hidden content-box">
+        <h3 class="text-xl font-bold">Subscribed Services</h3>
+        <p class="mt-2">List of services goes here...</p>
       </div>
+
+      <!-- Settings -->
+      <div id="settings" class="hidden content-box">
+        <h2 class="text-xl font-bold text-green-400 text-center">Settings</h2>
+        
+        <div class="text-center">
+          <img id="profile-pic" src="https://via.placeholder.com/100" alt="Profile Picture" 
+
+class="profile-pic mx-auto">
+          <label for="profile-upload" class="text-green-400 cursor-pointer block mt-2">Change 
+
+Profile Picture</label>
+          <input type="file" id="profile-upload" class="hidden" accept="image/*" 
+
+onchange="previewImage(event)">
+        </div>
+
+        <div class="mt-4">
+          <label class="block">Full Name</label>
+          <input type="text" class="input" placeholder="John Doe">
+        </div>
+
+        <div class="mt-4">
+          <label class="block">Email</label>
+          <input type="email" class="input" placeholder="john@example.com">
+        </div>
+
+        <div class="mt-4">
+          <label class="block">Phone Number</label>
+          <input type="tel" class="input" placeholder="+1234567890">
+        </div>
+
+        <div class="mt-4">
+          <label class="block">New Password</label>
+          <input type="password" class="input" placeholder="••••••••">
+        </div>
+
+        <button class="button w-full mt-4">Save Changes</button>
+      </div>
+
     </div>
 
   </div>
 
   <script>
-    const defaultProfile = "https://cdn-icons-png.flaticon.com/512/5529/552909.png";
-
-    function showSection(id) {
-      const sections = ['dashboard', 'services', 'settings'];
-      sections.forEach(section => {
-        document.getElementById(section).classList.add('hidden');
-      });
-      document.getElementById(id).classList.remove('hidden');
+    function showSection(section) {
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('services').classList.add('hidden');
+      document.getElementById('settings').classList.add('hidden');
+      document.getElementById(section).classList.remove('hidden');
     }
 
     function previewImage(event) {
@@ -334,14 +201,13 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
-          const imgData = e.target.result;
-          document.getElementById("profile-pic-settings").src = imgData;
-          document.getElementById("profile-pic-main").src = imgData;
+          document.getElementById("profile-pic").src = e.target.result;
         };
         reader.readAsDataURL(file);
       }
     }
+  </script>
 
-    function removeProfileImage() {
-      const defaultProfile = "https://cdn-icons-png.flaticon.com/512/5529/552909.png";
-      document.getElementById("profile-p
+</body>
+
+</html>
