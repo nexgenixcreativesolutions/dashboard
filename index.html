@@ -135,6 +135,10 @@
   <!-- Greeting and Chart -->
   <div class="mb-6">
     <h1 class="text-2xl font-bold mb-2 text-green-400">Welcome, Nex Genix!</h1>
+<!-- Real-Time Clock -->
+<div class="content-box text-center mb-6">
+  <div id="datetime" class="text-xl font-semibold text-green-300">Loading time...</div>
+</div>
     <div class="grid md:grid-cols-3 gap-6">
       <!-- Activity Graph Placeholder -->
       <div class="content-box col-span-2">
@@ -229,9 +233,10 @@
         <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
       </div>
 
-      <input type="text" class="input mt-2" placeholder="Full Name">
-      <input type="email" class="input mt-4" placeholder="Email">
-      <input type="tel" class="input mt-4" placeholder="Phone Number">
+<input type="text" class="input mt-2" placeholder="Full Name" id="input-name">
+<input type="email" class="input mt-4" placeholder="Email" id="input-email">
+<input type="tel" class="input mt-4" placeholder="Phone Number">
+<input type="date" class="input mt-4" placeholder="Birthdate" id="input-birthdate">
 
       <button class="button mt-6 w-full">Save Changes</button>
 
@@ -246,82 +251,101 @@
     </div>
   </div>
 
-  <script>
-    const services = [
-      {
-        source: "Nex Genix Business School",
-        products: [
-          "Complimentary Courses - Beginner-Friendly, Real-World Skills, Self-Paced, Certificate with QR",
-          "Premium Courses - Flexible Learning, Comprehensive Curriculum, Certificate with QR",
-          "Educational Books - Print & Free eBooks, Flexible Reading"
-        ]
-      },
-      {
-        source: "Nex Genix Creative Solutions",
-        products: [
-          "Brand Identity Development",
-          "Web & App UI/UX Design",
-          "Social Media Strategy & Management",
-          "Motion Graphics & Visual Effects"
-        ]
-      }
-    ];
-
-function showSection(sectionId) {
-  const sections = ['dashboard', 'services', 'settings'];
-  sections.forEach(id => {
-    document.getElementById(id).classList.add('hidden');
-  });
-  document.getElementById(sectionId).classList.remove('hidden');
+<script>
+function updateClock() {
+  const now = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const dateString = now.toLocaleDateString(undefined, options);
+  const timeString = now.toLocaleTimeString();
+  document.getElementById("datetime").textContent = `${timeString} | ${dateString}`;
 }
 
+setInterval(updateClock, 1000); // Update every second
 
-    function fetchData() {
-      const container = document.getElementById('service-list');
-      container.innerHTML = '';
-      services.forEach(service => {
-        const header = document.createElement('h4');
-        header.className = 'text-lg font-semibold text-white';
-        header.textContent = service.source;
-        container.appendChild(header);
-
-        const ul = document.createElement('ul');
-        ul.className = 'list-disc list-inside text-gray-300';
-        service.products.forEach(product => {
-          const li = document.createElement('li');
-          li.textContent = product;
-          ul.appendChild(li);
-        });
-
-        container.appendChild(ul);
-      });
+  const services = [
+    {
+      source: "Nex Genix Business School",
+      products: [
+        "Complimentary Courses - Beginner-Friendly, Real-World Skills, Self-Paced, Certificate with QR",
+        "Premium Courses - Flexible Learning, Comprehensive Curriculum, Certificate with QR",
+        "Educational Books - Print & Free eBooks, Flexible Reading"
+      ]
+    },
+    {
+      source: "Nex Genix Creative Solutions",
+      products: [
+        "Brand Identity Development",
+        "Web & App UI/UX Design",
+        "Social Media Strategy & Management",
+        "Motion Graphics & Visual Effects"
+      ]
     }
+  ];
 
-function previewImage(event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const imageHTML = `<img src="${e.target.result}" alt="Profile Picture" class="w-full h-full object-cover rounded-full">`;
-
-      // Update Settings Section
-      document.getElementById("profile-pic-wrapper").innerHTML = imageHTML;
-
-      // Update Dashboard Profile Card
-      const dashboardPic = document.getElementById("dashboard-pic");
-      if (dashboardPic) {
-        dashboardPic.innerHTML = imageHTML;
-      }
-    };
-    reader.readAsDataURL(file);
+  function showSection(sectionId) {
+    const sections = ['dashboard', 'services', 'settings'];
+    sections.forEach(id => {
+      document.getElementById(id).classList.add('hidden');
+    });
+    document.getElementById(sectionId).classList.remove('hidden');
   }
-}
 
-    window.onload = () => {
-      showSection('dashboard');
-      fetchData();
-    };
-  </script>
+  function fetchData() {
+    const container = document.getElementById('service-list');
+    container.innerHTML = '';
+    services.forEach(service => {
+      const header = document.createElement('h4');
+      header.className = 'text-lg font-semibold text-white';
+      header.textContent = service.source;
+      container.appendChild(header);
+
+      const ul = document.createElement('ul');
+      ul.className = 'list-disc list-inside text-gray-300';
+      service.products.forEach(product => {
+        const li = document.createElement('li');
+        li.textContent = product;
+        ul.appendChild(li);
+      });
+
+      container.appendChild(ul);
+    });
+  }
+
+  function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imageHTML = `<img src="${e.target.result}" alt="Profile Picture" class="w-full h-full object-cover rounded-full">`;
+
+        document.getElementById("profile-pic-wrapper").innerHTML = imageHTML;
+
+        const dashboardPic = document.getElementById("dashboard-pic");
+        if (dashboardPic) {
+          dashboardPic.innerHTML = imageHTML;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function updateProfileCard() {
+    const name = document.getElementById("input-name").value;
+    const email = document.getElementById("input-email").value;
+    const birthdate = document.getElementById("input-birthdate").value;
+
+    document.getElementById("full-name").textContent = name || "User Name";
+    document.getElementById("email").textContent = email || "email@example.com";
+    document.getElementById("birthdate").textContent = birthdate || "MM/DD/YYYY";
+  }
+
+  window.onload = () => {
+    showSection('dashboard');
+    fetchData();
+    document.querySelector(".button.mt-6.w-full").addEventListener("click", updateProfileCard);
+  };
+</script>
+
 </body>
 
 </html>
