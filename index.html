@@ -7,97 +7,116 @@
   <title>Nex Genix Dashboard Integration</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background-color: #1a202c;
-      color: white;
-      font-family: sans-serif;
-    }
+<style>
+  body {
+    font-family: sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+  }
 
-    .sidebar {
-      background-color: #2d3748;
-    }
+  .light-theme {
+    background-color: #f7fafc;
+    color: #1a202c;
+  }
 
-    .content-box {
-      background-color: #2d3748;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
+  .light-theme .sidebar {
+    background-color: #e2e8f0;
+  }
 
-    .input {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #4a5568;
-      border: 1px solid #2d3748;
-      border-radius: 0.5rem;
-      color: white;
-    }
+  .light-theme .content-box {
+    background-color: #edf2f7;
+    color: #1a202c;
+  }
 
-    .input:focus {
-      border-color: #48bb78;
-      box-shadow: 0 0 0 2px #48bb78;
-    }
+  .light-theme .input {
+    background-color: #e2e8f0;
+    border: 1px solid #cbd5e0;
+    color: #1a202c;
+  }
 
-    .button {
-      background-color: #48bb78;
-      color: white;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-    }
+  .light-theme .dropdown-menu {
+    background-color: #edf2f7;
+  }
 
-    .button:hover {
-      background-color: #38a169;
-    }
+  .light-theme .dropdown-menu a {
+    color: #1a202c;
+  }
 
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
+  .light-theme .dropdown-menu a:hover {
+    background-color: #c6f6d5;
+  }
 
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      background-color: #2d3748;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      min-width: 160px;
-      z-index: 10;
-    }
+  .dark-theme {
+    background-color: #1a202c;
+    color: white;
+  }
 
-    .dropdown-menu a {
-      padding: 0.75rem;
-      color: white;
-      text-decoration: none;
-      display: block;
-    }
+  .dark-theme .sidebar {
+    background-color: #2d3748;
+  }
 
-    .dropdown-menu a:hover {
-      background-color: #38a169;
-    }
+  .dark-theme .content-box {
+    background-color: #2d3748;
+    color: white;
+  }
 
-    .button-container {
-      display: flex;
-      gap: 1rem;
-    }
+  .dark-theme .input {
+    background-color: #4a5568;
+    border: 1px solid #2d3748;
+    color: white;
+  }
 
-    .profile-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+  .dark-theme .dropdown-menu {
+    background-color: #2d3748;
+  }
 
-    .profile-info {
-      margin-left: 1rem;
-    }
+  .dark-theme .dropdown-menu a {
+    color: white;
+  }
 
-    .profile-pic-wrapper img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-  </style>
+  .dark-theme .dropdown-menu a:hover {
+    background-color: #38a169;
+  }
+
+  .button {
+    background-color: #48bb78;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #38a169;
+  }
+
+  .input:focus {
+    border-color: #48bb78;
+    box-shadow: 0 0 0 2px #48bb78;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .profile-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-info {
+    margin-left: 1rem;
+  }
+
+  .profile-pic-wrapper img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+</style>
 </head>
 
 <body class="flex min-h-screen">
