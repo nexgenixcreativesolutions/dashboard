@@ -309,10 +309,9 @@ setInterval(updateClock, 1000); // Update every second
     {
       source: "Nex Genix Creative Solutions",
       products: [
-        "Brand Identity Development",
-        "Web & App UI/UX Design",
-        "Social Media Strategy & Management",
-        "Motion Graphics & Visual Effects"
+        "Digital Design and Visual Communication",
+        "Writing Services",
+        "Education and Training",
       ]
     }
   ];
@@ -330,12 +329,12 @@ setInterval(updateClock, 1000); // Update every second
     container.innerHTML = '';
     services.forEach(service => {
       const header = document.createElement('h4');
-      header.className = 'text-lg font-semibold text-white';
+      header.className = 'text-lg font-semibold text-black';
       header.textContent = service.source;
       container.appendChild(header);
 
       const ul = document.createElement('ul');
-      ul.className = 'list-disc list-inside text-gray-300';
+      ul.className = 'list-disc list-inside text-black-300';
       service.products.forEach(product => {
         const li = document.createElement('li');
         li.textContent = product;
