@@ -169,7 +169,7 @@
 <div id="dashboard">
   <!-- Greeting and Chart -->
   <div class="mb-6">
-    <h1 class="text-2xl font-bold mb-2 text-black-400">Welcome, Nex Genix!</h1>
+    <h1 id="welcome-message" class="text-2xl font-bold mb-2 text-black-400">Welcome, Nex Genix!</h1>
 <!-- Real-Time Clock -->
 <div class="content-box text-center mb-6">
   <div id="datetime" class="text-xl font-semibold text-black-300">Loading time...</div>
@@ -286,6 +286,11 @@
     </div>
   </div>
 
+<!-- Toast Notification -->
+<div id="toast" class="fixed bottom-6 right-6 bg-green-500 text-white px-4 py-2 rounded shadow-lg hidden z-50">
+  Changes saved successfully!
+</div>
+
 <script>
 function updateClock() {
   const now = new Date();
@@ -369,15 +374,40 @@ setInterval(updateClock, 1000); // Update every second
     const birthdate = document.getElementById("input-birthdate").value;
 
     document.getElementById("full-name").textContent = name || "User Name";
+    document.getElementById("welcome-message").textContent = `Welcome, ${name || "Nex Genix"}!`;
     document.getElementById("email").textContent = email || "email@example.com";
     document.getElementById("birthdate").textContent = birthdate || "MM/DD/YYYY";
   }
 
-  window.onload = () => {
-    showSection('dashboard');
-    fetchData();
-    document.querySelector(".button.mt-6.w-full").addEventListener("click", updateProfileCard);
-  };
+window.onload = () => {
+  showSection('dashboard');
+  fetchData();
+
+  // Save Changes
+  document.querySelector(".button.mt-6.w-full").addEventListener("click", () => {
+    updateProfileCard();
+    showToast("Changes saved successfully!");
+  });
+
+  // Reset Password
+  document.querySelectorAll(".button.w-full.mt-4").forEach(btn => {
+    btn.addEventListener("click", () => {
+      showToast("Password reset successfully!");
+    });
+  });
+};
+
+
+function showToast(message = "Changes saved successfully!") {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+
+  setTimeout(() => {
+    toast.classList.add("hidden");
+  }, 3000); // Hide after 3 seconds
+}
+
 </script>
 
 </body>
